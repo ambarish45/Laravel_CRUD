@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-   @include('include/head')
+    @include('include/head')
 </head>
 
 <body>
@@ -25,12 +25,14 @@
     @endif
 
     <div class="container">
-        <h1>Create Product</h1>
-        <form action="/products/store" method="post" enctype="multipart/form-data">
+        <h1>Edit Product</h1>
+        <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PATCH') <!-- Add this line for PATCH method -->
+
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $product->name }}" required>
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -40,7 +42,7 @@
 
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required></textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required>{{ $product->description }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -50,7 +52,10 @@
 
             <div class="form-group">
                 <label for="image">Image:</label>
-                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*" required>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
+                    <label class="custom-file-label" for="image" id="imageNameLabel">Choose file</label>
+                </div>
                 @error('image')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -58,7 +63,15 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <script>
+                // Update the file input label when a file is chosen
+                document.getElementById('image').addEventListener('change', function() {
+                    var fileName = this.files[0].name;
+                    document.getElementById('imageNameLabel').innerText = fileName;
+                });
+            </script>
+
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
 
     </div>
