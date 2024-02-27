@@ -36,15 +36,10 @@
                     </tr>
                     @endforeach
 
-
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
-
     @include('include/footer')
 </body>
 

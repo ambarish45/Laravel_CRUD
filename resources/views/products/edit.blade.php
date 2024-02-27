@@ -9,34 +9,34 @@
     @include('include/navbar')
 
     @if($message = Session::get('success'))
-        <div class="alert alert-success">
-            {{ $message }}
-        </div>
+    <div class="alert alert-success">
+        {{ $message }}
+    </div>
     @endif
 
     @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>    
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <div class="container">
         <h1>Edit Product</h1>
         <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-            @method('PATCH') <!-- Add this line for PATCH method -->
+            @method('PATCH')
 
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $product->name }}" required>
                 @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
                 @enderror
             </div>
 
@@ -44,9 +44,9 @@
                 <label for="description">Description:</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required>{{ $product->description }}</textarea>
                 @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
                 @enderror
             </div>
 
@@ -57,9 +57,9 @@
                     <label class="custom-file-label" for="image" id="imageNameLabel">Choose file</label>
                 </div>
                 @error('image')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
                 @enderror
             </div>
 
